@@ -1,0 +1,7 @@
+out
+/.idea/
+/target/
+/mc-plugin-template.iml
+.DS_Store
+.vscode/settings.json
+dependency-reduced-pom.xml
