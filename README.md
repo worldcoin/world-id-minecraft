@@ -24,7 +24,7 @@ In the log produced by the server on the command line watch out for the followin
 [22:48:13 INFO]: [World ID] Listening for player joins.
 ``` 
 
-We also need to run https://github.com/worldcoin/world-id-minecraft-web locally. Follow the instructions in the README to get it running. 
+We also need to run [the Web UI](https://github.com/worldcoin/world-id-minecraft-web) locally. Follow the instructions in the README to get it running. 
 
 Once it's up and running, ensure you set the `web-url` in `{MC_SERVER_DIR}/plugins/WorldId/config.yml` to the URL of the web server, typically `http://localhost:3000`. Also set `worldcoin-app-id` to the App ID you've gotten from Worldcoin's [Developer Portal](https://developer.worldcoin.org).
 
