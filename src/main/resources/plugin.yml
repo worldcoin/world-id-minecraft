@@ -1,0 +1,12 @@
+name: WorldId
+authors: [0xPenryn]
+website: worldcoin.org
+version: 0.0.1
+api-version: 1.20
+main: org.worldcoin.bukkit.plugin.worldid.WorldId
+prefix: "World ID"
+depend: [LuckPerms]
+
+commands:
+  verify:
+    description: Verifies you're a unique human and grants you permissions!
