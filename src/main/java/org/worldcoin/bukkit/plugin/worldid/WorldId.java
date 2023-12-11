@@ -6,7 +6,8 @@ import org.worldcoin.bukkit.plugin.worldid.event.JoinListener;
 
 public class WorldId extends JavaPlugin {
 
-    public String groupName = this.getConfig().getString("verified-group-name");
+    public String orbGroupName = this.getConfig().getString("world-id-orb-group-name");
+    public String liteGroupName = this.getConfig().getString("world-id-lite-group-name");
 
     private boolean isConfigured() {
         if (this.getConfig().getString("worldcoin-app-id") == null) {
@@ -20,7 +21,6 @@ public class WorldId extends JavaPlugin {
     public void onEnable() {
         this.saveDefaultConfig();
         getLogger().info("Initialized the config.");
-        // configureWorldGuard();
         if (!isConfigured()) {
             this.getServer().getPluginManager().disablePlugin(this);
             getLogger().warning("Plugin disabled.");

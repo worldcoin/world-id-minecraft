@@ -18,11 +18,11 @@ public class JoinListener implements Listener {
     public void join(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         player.sendMessage("Welcome to the server!");
-        if (player.hasPermission("group."+plugin.groupName)) {
+        if (player.hasPermission("group."+ plugin.orbGroupName) || player.hasPermission("group."+plugin.liteGroupName)) {
             player.sendMessage("You've been verified with World ID!");
         } else {
             player.sendMessage("You haven't been verified with World ID!");
-            player.sendMessage("You won't be able to interact with the world until you use the `/verify` command.");
+            player.sendMessage("You can get permissions by typing the `/verify` command to verify with World ID.");
         }
     }
 }
