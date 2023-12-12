@@ -30,7 +30,7 @@ public class VerifyCommand implements CommandExecutor {
             }
             String webUrl = plugin.getConfig().getString("web-url");
             UUID uuid = UUID.randomUUID();
-            String url = webUrl + "/verify?id=" + uuid + "&app_id=" + plugin.getConfig().getString("worldcoin-app-id");
+            String url = webUrl + "/verify?id=" + uuid + "&app_id=" + plugin.appId;
 
             player.sendMessage("Click here to verify with World ID:");
             player.sendMessage("");

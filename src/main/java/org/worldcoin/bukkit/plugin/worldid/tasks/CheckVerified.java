@@ -39,7 +39,7 @@ public class CheckVerified extends BukkitRunnable {
     public void run() {
         if (counter > 0) { 
             try {
-                Response response = Request.get(url + "/api/isVerified?id=" + uuid.toString()).execute();
+                Response response = Request.get(url).execute();
                 int responseCode = response.returnResponse().getCode();
                 String responseBody = response.returnContent().asString();
                 if (responseCode == 200) {
