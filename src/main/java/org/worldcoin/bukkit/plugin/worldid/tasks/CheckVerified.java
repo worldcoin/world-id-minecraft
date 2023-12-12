@@ -4,6 +4,9 @@ import java.util.UUID;
 
 import org.apache.hc.client5.http.fluent.Request;
 import org.apache.hc.client5.http.fluent.Response;
+import org.apache.hc.core5.http.ClassicHttpRequest;
+import org.apache.hc.core5.http.ClassicHttpResponse;
+import org.apache.hc.core5.http.HttpResponse;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
@@ -15,7 +18,6 @@ import net.luckperms.api.node.types.InheritanceNode;
 import net.luckperms.api.model.user.User;
 
 public class CheckVerified extends BukkitRunnable {
-
 
     private WorldId plugin = WorldId.getPlugin(WorldId.class);
 
@@ -40,24 +42,27 @@ public class CheckVerified extends BukkitRunnable {
         if (counter > 0) { 
             try {
                 Response response = Request.get(url).execute();
-                int responseCode = response.returnResponse().getCode();
                 String responseBody = response.returnContent().asString();
-                if (responseCode == 200) {
-                    String groupName;
-                    switch(responseBody) {
-                        case "orb":
-                            groupName = plugin.orbGroupName;
-                            break;
-                        case "device":
-                            groupName = plugin.deviceGroupName;
-                            if (groupName == null) {
-                                player.sendMessage("This Verification Level is not accepted.");
-                                this.cancel();
-                            }
-                            break;
-                        default:
-                            throw new IllegalStateException("invalid response body");
-                    }
+                String groupName;
+                boolean success;
+                switch(responseBody) {
+                    case "orb":
+                        groupName = plugin.orbGroupName;
+                        success = true;
+                        break;
+                    case "device":
+                        groupName = plugin.deviceGroupName;
+                        if (groupName == null) {
+                            player.sendMessage("This Verification Level is not accepted.");
+                            this.cancel();
+                        }
+                        success = true;
+                        break;
+                    default:
+                        groupName = "skip";
+                        success = false;
+                }
+                if (!success) {
                     if (player.hasPermission("group." + groupName)) {
                         throw new IllegalStateException("player is already verified");
                     }
