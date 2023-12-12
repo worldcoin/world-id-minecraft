@@ -1,4 +1,4 @@
 worldcoin-app-id: ""
-world-id-orb-group-name: "humans"
-world-id-lite-group-name: "" # If you want to require Orb verification, leave this blank.
+orb-group-name: "humans"
+device-group-name: "" # If you want to require Orb verification, leave this blank.
 web-url: "https://minecraft.worldcoin.org"
