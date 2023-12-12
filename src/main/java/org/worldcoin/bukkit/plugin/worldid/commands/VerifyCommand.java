@@ -24,7 +24,7 @@ public class VerifyCommand implements CommandExecutor {
         if (sender instanceof Player) {
             Player player = (Player) sender;
 
-            if (player.hasPermission("group." + plugin.orbGroupName) || player.hasPermission("group." + plugin.liteGroupName)) {
+            if (player.hasPermission("group." + plugin.orbGroupName) | player.hasPermission("group." + plugin.deviceGroupName)) {
                 player.sendMessage("You've already been verified with World ID!");
                 return true;
             }
