@@ -50,6 +50,10 @@ public class CheckVerified extends BukkitRunnable {
                             break;
                         case "device":
                             groupName = plugin.deviceGroupName;
+                            if (groupName == null) {
+                                player.sendMessage("This Verification Level is not accepted.");
+                                this.cancel();
+                            }
                             break;
                         default:
                             throw new IllegalStateException("invalid response body");
