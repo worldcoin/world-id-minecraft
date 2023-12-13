@@ -1,3 +1,4 @@
-worldcoin-app-id: ""
-verified-group-name: "humans"
+server-uuid: "" # Leave this blank to generate a new one. Once it's been set, do not change it, or users will be able to verify a second time.
+orb-group-name: "orb-humans"
+device-group-name: "device-humans" # If you want to require Orb verification, leave this blank.
 web-url: "https://minecraft.worldcoin.org"

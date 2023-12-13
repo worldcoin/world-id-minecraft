@@ -1,7 +1,7 @@
 name: WorldId
-authors: [0xPenryn]
+authors: [Penryn]
 website: worldcoin.org
-version: 0.0.1
+version: 0.1.0
 api-version: 1.20
 main: org.worldcoin.bukkit.plugin.worldid.WorldId
 prefix: "World ID"

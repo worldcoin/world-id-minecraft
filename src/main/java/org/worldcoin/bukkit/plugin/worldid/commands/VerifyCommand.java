@@ -24,18 +24,17 @@ public class VerifyCommand implements CommandExecutor {
         if (sender instanceof Player) {
             Player player = (Player) sender;
 
-            if (player.hasPermission("group." + plugin.groupName)) {
+            if (player.hasPermission("group." + plugin.orbGroupName) | player.hasPermission("group." + plugin.deviceGroupName)) {
                 player.sendMessage("You've already been verified with World ID!");
                 return true;
             }
-            String webUrl = plugin.getConfig().getString("web-url");
-            UUID uuid = UUID.randomUUID();
-            String url = webUrl + "/verify?id=" + uuid + "&app_id=" + plugin.getConfig().getString("worldcoin-app-id");
+            UUID req_uuid = UUID.randomUUID();
+            String url = plugin.webUrl + "/verify?reqUUID=" + req_uuid + "&serverUUID=" + plugin.uuid;
 
             player.sendMessage("Click here to verify with World ID:");
             player.sendMessage("");
 
-            TextComponent button = new TextComponent("Verify !");
+            TextComponent button = new TextComponent("Verify!");
             button.setColor(ChatColor.WHITE);
             button.setBold(true);
             button.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, url));
@@ -43,7 +42,7 @@ public class VerifyCommand implements CommandExecutor {
             player.spigot().sendMessage( button );
             player.sendMessage("");
 
-            new CheckVerified(player, plugin.groupName, uuid, webUrl, 20).runTaskTimer(plugin, 100, 200);
+            new CheckVerified(player, req_uuid, 20).runTaskTimerAsynchronously(plugin, 100, 200);
             return true;
         } else {
             sender.sendMessage("You must be a player!");
