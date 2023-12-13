@@ -28,9 +28,8 @@ public class VerifyCommand implements CommandExecutor {
                 player.sendMessage("You've already been verified with World ID!");
                 return true;
             }
-            String webUrl = plugin.getConfig().getString("web-url");
-            UUID uuid = UUID.randomUUID();
-            String url = webUrl + "/verify?id=" + uuid + "&app_id=" + plugin.appId;
+            UUID req_uuid = UUID.randomUUID();
+            String url = plugin.webUrl + "/verify?reqUUID=" + req_uuid + "&serverUUID=" + plugin.uuid;
 
             player.sendMessage("Click here to verify with World ID:");
             player.sendMessage("");
@@ -43,7 +42,7 @@ public class VerifyCommand implements CommandExecutor {
             player.spigot().sendMessage( button );
             player.sendMessage("");
 
-            new CheckVerified(player, uuid, webUrl, 20).runTaskTimer(plugin, 100, 200);
+            new CheckVerified(player, req_uuid, 20).runTaskTimerAsynchronously(plugin, 100, 200);
             return true;
         } else {
             sender.sendMessage("You must be a player!");
