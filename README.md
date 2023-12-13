@@ -6,18 +6,16 @@ A plugin for the spigot Minecraft server that can be used to grant users permiss
 
 The plugin can be configured by editing the `config.yml` file in the `plugins/WorldId` directory of your Minecraft server. The following settings are available:
 
-- worldcoin-app-id: ""
-    - REQUIRED
-    - The App ID you've gotten from Worldcoin's [Developer Portal](https://developer.worldcoin.org).
-- world-id-orb-group-name: "humans"
-    - REQUIRED
-    - The name of the LuckPerms group that will be granted to users who verify with World ID's Orb Credential. The Orb credential provides a very high level of assurance that the user is a human with only one account.
-- world-id-lite-group-name: ""
-    - OPTIONAL
-    - The name of the LuckPerms group that will be granted to users who verify with World ID Lite. World ID Lite verifies that a user has a unique mobile device, providing medium-strength bot protection that is still easy to use.
+- server-uuid: ""
+    - A UUID to represent your server. One will be automatically set if you don't provide one. Don't change this after it's been initially set unless you want to allow all users to verify again.
+- orb-group-name: "humans"
+    - The name of the LuckPerms group that will be granted to users who verify with World ID Orb. The Orb credential provides a very high level of assurance that the user is a human with only one account.
+- device-group-name: ""
+    - The name of the LuckPerms group that will be granted to users who verify with World ID Device. World ID Lite verifies that a user has a unique mobile device, providing medium-strength bot protection that is still easy to use.
 - web-url: "https://minecraft.worldcoin.org"
-    - REQUIRED
     - The URL to use for the web interface where users will verify with World ID. You shouldn't change this unless you're running the web interface locally for development purposes.
+
+Either `orb-group-name` or `device-group-name` must be set. If only `orb-group-name` is set, only users who are Orb-verified will be added to that group. If only `device-group-name` is set, users with either the Device or Orb credential will be added to that group.
 
 ## Dev Quickstart
 
