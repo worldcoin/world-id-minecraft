@@ -90,6 +90,7 @@ public class CheckVerified extends BukkitRunnable {
                             posthog.capture(player.getUniqueId().toString(), "minecraft integration verification", new HashMap<String, Object>() {
                                 {
                                   put("verification_level", verification_level);
+                                  put("server_uuid", plugin.getServer().getServerId());
                                 }
                             });
                             CheckVerified.this.cancel();
