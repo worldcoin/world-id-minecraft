@@ -60,23 +60,23 @@ public class WorldIdSettings {
     }
 
     public String getDeviceGroupName() {
-        return deviceGroupName;
+        return this.deviceGroupName;
     }
 
     public String getOrbGroupName() {
-        return orbGroupName;
+        return this.orbGroupName;
     }
 
     public String getUuid() {
-        return uuid;
+        return this.uuid;
     }
 
     public String getWebUrl() {
-        return webUrl;
+        return this.webUrl;
     }
 
     public PostHog getPosthog() {
-        return posthog;
+        return this.posthog;
     }
 
     public void setUuid(String uuid) {

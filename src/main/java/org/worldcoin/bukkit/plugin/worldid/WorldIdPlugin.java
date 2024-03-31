@@ -2,6 +2,7 @@ package org.worldcoin.bukkit.plugin.worldid;
 
 import com.posthog.java.PostHog;
 import java.util.UUID;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.worldcoin.bukkit.plugin.worldid.commands.VerifyCommand;
 import org.worldcoin.bukkit.plugin.worldid.config.WorldIdSettings;
@@ -14,13 +15,13 @@ public class WorldIdPlugin extends JavaPlugin {
     @Override
     public void onEnable() {
         this.settings = new WorldIdSettings(this);
+        this.ensureUUID();
+
+        final String serverUUID = settings.getUuid();
         final PostHog posthog = settings.getPosthog();
 
-        this.ensureUUID();
-        final String serverUUID = settings.getUuid();
-
-        log("Initialized the config.");
-        log("Server UUID: " + settings.getUuid());
+        this.log("Initialized the config.");
+        this.log("Server UUID: " + serverUUID);
 
         if (!settings.isValid()) {
             getServer().getPluginManager().disablePlugin(this);
@@ -28,11 +29,14 @@ public class WorldIdPlugin extends JavaPlugin {
             return;
         }
 
-        log("Plugin enabled.");
-        getCommand("verify").setExecutor(new VerifyCommand());
-        log("Added the 'verify' command.");
+        this.log("Plugin enabled.");
+
+        this.getCommand("verify").setExecutor(new VerifyCommand(this));
+        this.log("Added the 'verify' command.");
+
         new JoinListener(this);
-        log("Listening for player joins.");
+        this.log("Listening for player joins.");
+
         posthog.capture(serverUUID, "minecraft integration app started");
 
     }
@@ -46,11 +50,15 @@ public class WorldIdPlugin extends JavaPlugin {
         posthog.shutdown();
     }
 
+    public boolean isVerified(Player player) {
+        return player.hasPermission("group." + settings.getOrbGroupName()) || player.hasPermission("group." + settings.getDeviceGroupName());
+    }
+
     private void ensureUUID() {
         final String currentId = settings.getUuid();
         final PostHog posthog = settings.getPosthog();
 
-        if (currentId != null && !currentId.isEmpty()) {
+        if (currentId != null && !currentId.isEmpty()) { // CurrentId is set and not empty
             return;
         }
 
