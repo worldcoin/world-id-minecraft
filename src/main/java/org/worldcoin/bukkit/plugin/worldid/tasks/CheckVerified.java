@@ -10,7 +10,7 @@ import org.apache.hc.core5.http.io.HttpClientResponseHandler;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.worldcoin.bukkit.plugin.worldid.WorldId;
+import org.worldcoin.bukkit.plugin.worldid.WorldIdPlugin;
 
 import com.posthog.java.PostHog;
 
@@ -21,7 +21,7 @@ import net.luckperms.api.model.user.User;
 
 public class CheckVerified extends BukkitRunnable {
 
-    private WorldId plugin = WorldId.getPlugin(WorldId.class);
+    private WorldIdPlugin plugin = WorldIdPlugin.getPlugin(WorldIdPlugin.class);
 
     private final Player player;
     private final String webUrl;
@@ -32,7 +32,7 @@ public class CheckVerified extends BukkitRunnable {
     private String deviceGroupName = config.getString("device-group-name");
     private String baseUrl = config.getString("web-url");
 
-    PostHog posthog = new PostHog.Builder(WorldId.POSTHOG_API_KEY).host(WorldId.POSTHOG_HOST).build();
+    PostHog posthog = new PostHog.Builder(WorldIdPlugin.POSTHOG_API_KEY).host(WorldIdPlugin.POSTHOG_HOST).build();
 
     public CheckVerified(Player player, UUID uuid, int counter) {
         this.player = player;

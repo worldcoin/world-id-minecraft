@@ -2,7 +2,7 @@ package org.worldcoin.bukkit.plugin.worldid.commands;
 
 import java.util.UUID;
 
-import org.worldcoin.bukkit.plugin.worldid.WorldId;
+import org.worldcoin.bukkit.plugin.worldid.WorldIdPlugin;
 import org.worldcoin.bukkit.plugin.worldid.tasks.CheckVerified;
 
 import net.md_5.bungee.api.ChatColor;
@@ -17,7 +17,7 @@ import org.bukkit.entity.Player;
 
 public class VerifyCommand implements CommandExecutor {
 
-    private WorldId plugin = WorldId.getPlugin(WorldId.class);
+    private WorldIdPlugin plugin = WorldIdPlugin.getPlugin(WorldIdPlugin.class);
 
     private FileConfiguration config = plugin.getConfig();
     private String orbGroupName = config.getString("orb-group-name");

@@ -1,6 +1,6 @@
 package org.worldcoin.bukkit.plugin.worldid.event;
 
-import org.worldcoin.bukkit.plugin.worldid.WorldId;
+import org.worldcoin.bukkit.plugin.worldid.WorldIdPlugin;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -9,13 +9,13 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 public class JoinListener implements Listener {
 
-    private WorldId plugin = WorldId.getPlugin(WorldId.class);
+    private WorldIdPlugin plugin = WorldIdPlugin.getPlugin(WorldIdPlugin.class);
 
     private FileConfiguration config = plugin.getConfig();
     private String orbGroupName = config.getString("orb-group-name");
     private String deviceGroupName = config.getString("device-group-name");
 
-    public JoinListener(WorldId plugin) {
+    public JoinListener(WorldIdPlugin plugin) {
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
     
