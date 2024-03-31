@@ -3,7 +3,7 @@ authors: [Penryn]
 website: worldcoin.org
 version: 0.1.0
 api-version: 1.20
-main: org.worldcoin.bukkit.plugin.worldid.WorldId
+main: org.worldcoin.bukkit.plugin.worldid.WorldIdPlugin
 prefix: "World ID"
 depend: [LuckPerms]
 
