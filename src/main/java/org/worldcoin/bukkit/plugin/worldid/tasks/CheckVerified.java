@@ -55,14 +55,14 @@ public class CheckVerified extends BukkitRunnable {
             return;
         }
 
-        if (attempts <= 0) {
+        if (this.attempts <= 0) {
             player.sendMessage("Timed out waiting for verification. Please try again.");
             this.cancel();
             return;
         }
 
         try {
-            Request.get(webUrl).execute().handleResponse(response -> {
+            Request.get(this.webUrl).execute().handleResponse(response -> {
                 final int status = response.getCode();
 
                 if (status != 200) {
@@ -70,38 +70,30 @@ public class CheckVerified extends BukkitRunnable {
                 }
 
                 String verificationLevel = new String(response.getEntity().getContent().readAllBytes());
-                String groupName;
+                String expectedGroupName = getExpectedGroupName(verificationLevel);
 
-                switch (verificationLevel) {
-                    case "orb":
-                        groupName = orbGroupName.isBlank() ? deviceGroupName : orbGroupName;
-                        break;
-                    case "device":
-                        groupName = deviceGroupName;
-                        if (groupName == null) {
-                            player.sendMessage("This Verification Level is not accepted.");
-                            CheckVerified.this.cancel();
-                            return false;
-                        }
-                        break;
-                    default:
-                        player.sendMessage("Invalid Verification Level.");
-                        CheckVerified.this.cancel();
-                        return false;
+                if (expectedGroupName == null) {
+                    final String errorMessage = verificationLevel.equalsIgnoreCase("device") ?
+                        "This Verification Level is not accepted." :
+                        "Invalid Verification Level.";
+
+                    player.sendMessage(errorMessage);
+                    this.cancel();
+                    return false;
                 }
 
                 if (this.plugin.isVerified(player)) {
                     throw new IllegalStateException("player is already verified");
                 }
 
-                this.finalizeVerification(player, groupName, verificationLevel);
+                this.finalizeVerification(player, expectedGroupName, verificationLevel);
                 return true;
             });
         } catch (Exception exception) {
             player.sendMessage("Error while verifying with World ID: ", exception.toString());
             this.cancel();
         } finally {
-            attempts--;
+            this.attempts--;
         }
     }
 
@@ -123,5 +115,13 @@ public class CheckVerified extends BukkitRunnable {
         // Potential improvement: Call a custom event announcing verification is complete
 
         this.cancel();
+    }
+
+    private String getExpectedGroupName(String verificationLevel) {
+        return switch (verificationLevel) {
+            case "orb" -> orbGroupName.isBlank() ? deviceGroupName : orbGroupName;
+            case "device" -> deviceGroupName;
+            default -> null;
+        };
     }
 }
