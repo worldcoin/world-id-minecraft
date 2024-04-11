@@ -2,6 +2,16 @@
 
 A plugin for the spigot Minecraft server that can be used to grant users permissions when they verify with World ID. Intended to be used with [LuckPerms](https://luckperms.net/).
 
+## Installation
+
+- Install [PaperMC](https://papermc.io/downloads/paper)
+- Install [LuckPerms](https://luckperms.net/download) `LuckPerms-Bukkit-X.X.XXX.jar` to `installdir/plugins`
+- Start the server
+- Stop the server
+- Modify `installdir/plugins/WorldID/config.yml` to your liking
+- Install [https://github.com/worldcoin/world-id-minecraft-web
+](world-id-minecraft-web)
+
 ## Configuration
 
 The plugin can be configured by editing the `config.yml` file in the `plugins/WorldId` directory of your Minecraft server. The following settings are available:
